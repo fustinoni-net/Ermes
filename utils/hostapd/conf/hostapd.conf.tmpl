@@ -1,0 +1,47 @@
+ctrl_interface=/var/run/hostapd
+ctrl_interface_group=netdev
+
+logger_syslog=-1
+logger_syslog_level=0
+
+
+# Wireless interface
+interface=${AP_INTERFACE}
+driver=nl80211
+country_code=IT
+ieee80211d=1
+
+
+# Wireless environmen
+ssid=${AP_SSID}
+hw_mode=g
+channel=${AP_CHANNEL}
+#channel=acs_survey
+#
+# WMM-PS Unscheduled Automatic Power Save Delivery [U-APSD]
+# Enable this flag if U-APSD supported outside hostapd (eg., Firmware/driver)
+#uapsd_advertisement_enabled=1
+
+
+# 802.11n
+ieee80211n=1
+#ht_capab=[HT40+][RX-STBC1][SMPS-STATIC][SHORT-GI-20][SHORT-GI-40][DSSS_CCK-40]
+ht_capab=[HT40][SHORT-GI-20][DSSS_CCK-40]
+wmm_enabled=1
+
+
+# Authentication and encryption
+macaddr_acl=0
+auth_algs=1
+ignore_broadcast_ssid=0
+wpa=2
+wpa_passphrase=${AP_PASSPHRASE}
+wpa_key_mgmt=WPA-PSK
+wpa_pairwise=TKIP
+rsn_pairwise=CCMP
+# Time interval for rekeying GTK (broadcast/multicast encryption keys) in
+# seconds. (dot11RSNAConfigGroupRekeyTime)
+# This defaults to 86400 seconds (once per day) when using CCMP/GCMP as the
+# group cipher and 600 seconds (once per 10 minutes) when using TKIP as the
+# group cipher.
+wpa_group_rekey=86400
