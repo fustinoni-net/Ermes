@@ -2,18 +2,30 @@
 
 # personalized
 
+# Set the access point SSID
 AP_SSID=ermes
+# Set the access point passphrase
 AP_PASSPHRASE=12345678
+# Set the access point channel
 AP_CHANNEL=1
+# Set the install directory path
 INSTALL_DIR=/home/pi/wifiExtender/
 
-# end personalize
+# end personalized
+
+# At your own risk
+
+# To automatically modify the file /etc/rc.local
+# set RC_LOCAL_CHANGE=yes
+RC_LOCAL_CHANGE=yes
+
+#end at your own risk
 
 # Base dev interfaces
 BASE_WIFI_DEV=wlan0
 ACCESS_POINT_DEV=ap0
 
-# project subdir
+# project subdir do not modify
 SYSTEM_UTILS_DIR=utils/system/
 DNSMQSQ_UTILS_DIR=utils/dnsmasq/
 HOSTAPD_UTILS_DIR=utils/hostapd/
@@ -72,24 +84,32 @@ createDir ${INSTALL_DIR}${WPA_SUPPLICANT_UTILS_DIR}
 setupFile ${WPA_SUPPLICANT_UTILS_DIR}wpa_events.sh
 #Considerare se creare unwpa_supplicant.conf con parametri per wpa_cli
 
-exit 0
-
-
-#change rc.local
-if [ $(cat rc.local |grep startWiFiExtender.sh\n |wc -l) !=  1 ]; then
-        cp /etc/rc.local /etc/rc.local.wifiExtender
-        sed  "s|exit 0$|${dir}startWiFiExtender.sh \&\nexit 0|" rc.local.wifiExtender > rc.local
-        exit 0
-fi
-
+#change to /etc/rc.local
 if [ $(cat /etc/rc.local |grep startWiFiExtender.sh |wc -l) !=  1 ]; then
-	cp /etc/rc.local /etc/rc.local.wifiExtender
-	
+	if [ "$RC_LOCAL_CHANGE" = "yes" ]; then
+		echo "File /etc/rc.local modified"
+		echo "a backup copy off the file is made /etc/rc.local.wifiExtender"
+	        #cp /etc/rc.local /etc/rc.local.wifiExtender
+        	#sed  "s|exit 0$|${INSTALL_DIR}startWiFiExtender.sh \&\nexit 0|" /etc/rc.local.wifiExtender > /etc/rc.local
+	else
+		echo "Remeber to modify the file: /etc/rc.local"
+		echo "add '${INSTALL_DIR}startWiFiExtender.sh &' before the line: 'exit 0'"
+        fi
+else
+	echo "File /etc/rc.local already modified"
 fi
+
+
+
+#if [ $(cat /etc/rc.local |grep startWiFiExtender.sh |wc -l) !=  1 ]; then
+#	cp /etc/rc.local /etc/rc.local.wifiExtender
+#
+#fi
 
 
 apt-get update
-apt-get -y install hostapd dnsmasq haveged
+apt-get upgrade
+#apt-get -y install hostapd dnsmasq haveged
 
 #systemctl stop dnsmasq
 #systemctl stop dnsmasq
@@ -98,9 +118,8 @@ apt-get -y install hostapd dnsmasq haveged
 #systemctl disable dnsmasq
 #systemctl disable dnsmasq
 
+exit 0
+
 #setup dnsmasq and hostapd config file
-${INSTALL_DIR}setHostapdConf.sh $ACCESS_POINT_DEV $AP_CHANNEL
+${INSTALL_DIR}${HOSTAPD_UTILS_DIR}setHostapdConf.sh $ACCESS_POINT_DEV $AP_CHANNEL
 cp ${INSTALL_DIR}${DNSMQSQ_UTILS_DIR}conf/ /etc/
-
-
-
