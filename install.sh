@@ -54,7 +54,7 @@ setupFile ${HOSTAPD_UTILS_DIR}execDeauthStation.sh
 setupFile ${HOSTAPD_UTILS_DIR}setHostapdConf.sh
 
 createDir ${INSTALL_DIR}${HOSTAPD_UTILS_DIR}/conf
-cp ${pwd}${HOSTAPD_UTILS_DIR}/conf/hostapd.conf.tmpl ${INSTALL_DIR}${HOSTAPD_UTILS_DIR}conf/
+cp ${pwd}${HOSTAPD_UTILS_DIR}conf/hostapd.conf.tmpl ${INSTALL_DIR}${HOSTAPD_UTILS_DIR}conf/
 
 
 
