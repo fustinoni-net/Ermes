@@ -3,7 +3,6 @@
 
 mapfile -t my_array < <(iwconfig 2> /dev/null |grep wlan | sed 's/\(wlan[0-9]*\).*/\1/g')
 if [[ " ${my_array[@]} " =~ " wlan1 " ]]; then
-    # whatever you want to do when arr contains value
     #echo "found wlan1"
         exit 0
 fi
@@ -44,6 +43,6 @@ if (! [[ "$OLD_AP_CHANNEL" =~ ^[0-9]+$ ]] && [ "$OLD_AP_CHANNEL" -ge 1 -a "$OLD_
 fi
 
 if [ $AP_CHANNEL -ne $OLD_AP_CHANNEL ]; then
-	${base_dir}execDeauthStation.sh
-	${base_dir}saveAPChannel.sh
+	${base_dir}${HOSTAPD_UTILS_DIR}execDeauthStation.sh
+	${base_dir}${SYSTEM_UTILS_DIR}saveAPChannel.sh
 fi

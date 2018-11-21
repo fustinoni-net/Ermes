@@ -18,7 +18,7 @@ WPA_ACTION="$2"
 
 case "$WPA_ACTION" in
         "CONNECTED")
-								base_dir=${INSTALL_DIR}deauthStation.sh
+		${base_dir}${HOSTAPD_UTILS_DIR}deauthStation.sh
                 ;;
 
         "DISCONNECTED")
