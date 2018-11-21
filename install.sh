@@ -3,9 +3,11 @@
 # personalized
 
 # Set the access point SSID
-AP_SSID=ermes
+#AP_SSID=ermes
+AP_SSID=caronte
 # Set the access point passphrase
-AP_PASSPHRASE=12345678
+#AP_PASSPHRASE=12345678
+AP_PASSPHRASE=bringsYou2hell
 # Set the access point channel
 AP_CHANNEL=1
 # Set the install directory path
@@ -89,8 +91,8 @@ if [ $(cat /etc/rc.local |grep startWiFiExtender.sh |wc -l) !=  1 ]; then
 	if [ "$RC_LOCAL_CHANGE" = "yes" ]; then
 		echo "File /etc/rc.local modified"
 		echo "a backup copy off the file is made /etc/rc.local.wifiExtender"
-	        #cp /etc/rc.local /etc/rc.local.wifiExtender
-        	#sed  "s|exit 0$|${INSTALL_DIR}startWiFiExtender.sh \&\nexit 0|" /etc/rc.local.wifiExtender > /etc/rc.local
+	        cp /etc/rc.local /etc/rc.local.wifiExtender
+        	sed  "s|exit 0$|${INSTALL_DIR}startWiFiExtender.sh \&\nexit 0|" /etc/rc.local.wifiExtender > /etc/rc.local
 	else
 		echo "Remeber to modify the file: /etc/rc.local"
 		echo "add '${INSTALL_DIR}startWiFiExtender.sh &' before the line: 'exit 0'"
@@ -109,17 +111,16 @@ fi
 
 apt-get update
 apt-get upgrade
-#apt-get -y install hostapd dnsmasq haveged
+apt-get -y install hostapd dnsmasq haveged
 
 #systemctl stop dnsmasq
-#systemctl stop dnsmasq
+#systemctl stop hostapd
 
-#systemctl disable wpa_supplicant.service
-#systemctl disable dnsmasq
-#systemctl disable dnsmasq
+systemctl disable wpa_supplicant.service
+systemctl disable dnsmasq
+systemctl disable hostapd
 
-exit 0
 
 #setup dnsmasq and hostapd config file
 ${INSTALL_DIR}${HOSTAPD_UTILS_DIR}setHostapdConf.sh $ACCESS_POINT_DEV $AP_CHANNEL
-cp ${INSTALL_DIR}${DNSMQSQ_UTILS_DIR}conf/ /etc/
+#cp ${INSTALL_DIR}${DNSMQSQ_UTILS_DIR}conf/ /etc/
