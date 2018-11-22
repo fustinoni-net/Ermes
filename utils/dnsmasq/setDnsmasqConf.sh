@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [ -z "$1" ] || [ -z "$2" ]; then
+if [ -z "$1" ] || [ -z "$2" ] || [ -z "$3" ]; then
         echo "Usage: $0 AP_INTERFACE JAIL [y|n] ADS_BLOCK [y|n]"
         exit 1
 fi
@@ -24,36 +24,34 @@ fi
 
 AP_INTERFACE=$1
 
-echo "jail $2"
-
-JAIL="yy"
-
+JAIL=""
 if [ "$2" = "n" ]; then
-#	echo "no"
-	JAIL='nn'
+	JAIL="#"
 fi
 
-echo "ads $3"
-
-ADS_BLOCK="nn"
-
+ADS_BLOCK="#"
 if [ "$3" = "y" ]; then
-	echo "si"
-        ADS_BLOCK='yy'
+        ADS_BLOCK=""
 fi
 
-echo "$AP_INTERFACE jail  $JAIL  ads $ADS_BLOCK"
+#echo "$AP_INTERFACE jail  $JAIL  ads $ADS_BLOCK"
 
-#export AP_CHANNEL AP_INTERFACE AP_SSID AP_PASSPHRASE
+export AP_CHANNEL AP_INTERFACE JAIL ADS_BLOCK
 
-#TEMP_FILE=$(pwd)/conf/hostapd.conf
-#DESTINATION_FILE=/etc/hostapd/hostapd.conf
-#DESTINATION_FILE_BACKUP=/etc/hostapd/hostapd.conf.backup
+TEMP_FILE=$(pwd)/conf/dnsmasq.conf
+DESTINATION_FILE=/etc/dnsmasq.conf
+DESTINATION_FILE_BACKUP=/etc/dnsmasq.conf.backup
 
-#at $TMPL_FILE | envsubst > $TEMP_FILE
+cat $TMPL_FILE | envsubst > $TEMP_FILE
 
 
-#sudo cp $DESTINATION_FILE $DESTINATION_FILE_BACKUP
-#sudo cp $TEMP_FILE $DESTINATION_FILE
+sudo cp $DESTINATION_FILE $DESTINATION_FILE_BACKUP
+sudo cp $TEMP_FILE $DESTINATION_FILE
 
-#sudo reboot
+sudo service dnsmasq restart
+
+#sudo service dnsmasq stop
+#sudo service dnsmasq start
+#sudo service hostapd stop
+#sudo service hostapd start
+
