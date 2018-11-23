@@ -26,6 +26,8 @@ service dnsmasq start
 #iptables -A FORWARD -i $wlan -o ap0 -m state --state RELATED,ESTABLISHED -j ACCEPT
 #iptables -A FORWARD -i ap0 -o $wlan -j ACCEPT
 
+sysctl net.ipv4.ip_forward=1
+
 ${base_dir}${SYSTEM_UTILS_DIR}setBaseRoute.sh $wlan
 
 ${base_dir}${SYSTEM_UTILS_DIR}saveAPChannel.sh

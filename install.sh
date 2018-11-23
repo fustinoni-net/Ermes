@@ -4,6 +4,7 @@
 
 # Set the access point SSID
 AP_SSID=ermes
+
 # Set the access point passphrase
 AP_PASSPHRASE=12345678
 
@@ -57,7 +58,12 @@ setupFile startWiFiExtender.sh
 
 
 #setup dnsmasq files 
+createDir ${INSTALL_DIR}${DNSMQSQ_UTILS_DIR}
 
+setupFile ${DNSMQSQ_UTILS_DIR}setDnsmasqConf.sh
+
+createDir ${INSTALL_DIR}${DNSMQSQ_UTILS_DIR}/conf
+cp ${pwd}${DNSMQSQ_UTILS_DIR}conf/dnsmasq.conf.tmpl ${INSTALL_DIR}${DNSMQSQ_UTILS_DIR}conf/
 
 #setup hostapd files
 createDir ${INSTALL_DIR}${HOSTAPD_UTILS_DIR}
@@ -121,5 +127,6 @@ systemctl disable hostapd
 
 
 #setup dnsmasq and hostapd config file
-${INSTALL_DIR}${HOSTAPD_UTILS_DIR}setHostapdConf.sh $ACCESS_POINT_DEV $AP_CHANNEL
-#cp ${INSTALL_DIR}${DNSMQSQ_UTILS_DIR}conf/ /etc/
+echo "setup dnsmasq and hostapd config file..."
+${INSTALL_DIR}${HOSTAPD_UTILS_DIR}setHostapdConf.sh $ACCESS_POINT_DEV ${AP_CHANNEL}
+${INSTALL_DIR}${DNSMQSQ_UTILS_DIR}setDnsmasqConf.sh $ACCESS_POINT_DEV y n

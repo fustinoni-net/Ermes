@@ -16,7 +16,7 @@ if !([[ "$3" =~ ^[yn]+$ ]]); then
     exit 1
 fi
 
-TMPL_FILE=$(pwd)/conf/dnsmasq.conf.tmpl
+TMPL_FILE=${INSTALL_DIR}${DNSMQSQ_UTILS_DIR}conf/dnsmasq.conf.tmpl
 
 if test ! -f $TMPL_FILE ; then 
 	exit 1
@@ -38,7 +38,7 @@ fi
 
 export AP_CHANNEL AP_INTERFACE JAIL ADS_BLOCK
 
-TEMP_FILE=$(pwd)/conf/dnsmasq.conf
+TEMP_FILE=${INSTALL_DIR}${DNSMQSQ_UTILS_DIR}conf/dnsmasq.conf
 DESTINATION_FILE=/etc/dnsmasq.conf
 DESTINATION_FILE_BACKUP=/etc/dnsmasq.conf.backup
 
