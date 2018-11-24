@@ -55,7 +55,7 @@ function createDir {
 createDir ${INSTALL_DIR}
 
 setupFile startWiFiExtender.sh
-
+setupFile setJail.sh
 
 #setup dnsmasq files 
 createDir ${INSTALL_DIR}${DNSMQSQ_UTILS_DIR}
