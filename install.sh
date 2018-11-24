@@ -85,6 +85,8 @@ createDir ${INSTALL_DIR}${SYSTEM_UTILS_DIR}
 setupFile ${SYSTEM_UTILS_DIR}removeBaseRoute.sh
 setupFile ${SYSTEM_UTILS_DIR}saveAPChannel.sh
 setupFile ${SYSTEM_UTILS_DIR}setBaseRoute.sh
+setupFile ${SYSTEM_UTILS_DIR}removeVPNRoute.sh
+setupFile ${SYSTEM_UTILS_DIR}setVPNRoute.sh
 
 #setup wpa_supplicant files
 createDir ${INSTALL_DIR}${WPA_SUPPLICANT_UTILS_DIR}
@@ -116,14 +118,16 @@ fi
 
 apt-get update
 apt-get upgrade
-apt-get -y install hostapd dnsmasq haveged
+apt-get -y install hostapd dnsmasq haveged openvpn
 
 #systemctl stop dnsmasq
 #systemctl stop hostapd
+#systemctl stop openvpn.service
 
 systemctl disable wpa_supplicant.service
 systemctl disable dnsmasq
 systemctl disable hostapd
+systemctl disable openvpn.service
 
 
 #setup dnsmasq and hostapd config file
