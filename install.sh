@@ -91,7 +91,9 @@ setupFile ${SYSTEM_UTILS_DIR}setVPNRoute.sh
 #setup wpa_supplicant files
 createDir ${INSTALL_DIR}${WPA_SUPPLICANT_UTILS_DIR}
 setupFile ${WPA_SUPPLICANT_UTILS_DIR}wpa_events.sh
-#Considerare se creare unwpa_supplicant.conf con parametri per wpa_cli
+setupFile ${base_dir}${WPA_SUPPLICANT_UTILS_DIR}createWpa_supplicantTCPInterface.sh
+cp  ${pwd}${WPA_SUPPLICANT_UTILS_DIR}wpaTcpGateway.py ${INSTALL_DIR}${WPA_SUPPLICANT_UTILS_DIR}
+#Considerare se creare un wpa_supplicant.conf con parametri per wpa_cli
 
 #change to /etc/rc.local
 if [ $(cat /etc/rc.local |grep startWiFiExtender.sh |wc -l) !=  1 ]; then

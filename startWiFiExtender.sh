@@ -21,6 +21,7 @@ service dnsmasq start
 
 /sbin/wpa_supplicant -B -c/etc/wpa_supplicant/wpa_supplicant.conf -i$wlan -Dnl80211,wext
 /sbin/wpa_cli -i$wlan -B -a ${base_dir}${WPA_SUPPLICANT_UTILS_DIR}wpa_events.sh
+${base_dir}${WPA_SUPPLICANT_UTILS_DIR}createWpa_supplicantTCPInterface.sh $wlan
 
 #iptables -t nat -A POSTROUTING -o $wlan -j MASQUERADE
 #iptables -A FORWARD -i $wlan -o ap0 -m state --state RELATED,ESTABLISHED -j ACCEPT
