@@ -27,8 +27,11 @@ ${base_dir}${WPA_SUPPLICANT_UTILS_DIR}createWpa_supplicantTCPInterface.sh $wlan
 #iptables -A FORWARD -i $wlan -o ap0 -m state --state RELATED,ESTABLISHED -j ACCEPT
 #iptables -A FORWARD -i ap0 -o $wlan -j ACCEPT
 
+#check on the following line. Should not be needed
 sysctl net.ipv4.ip_forward=1
 
 ${base_dir}${SYSTEM_UTILS_DIR}setBaseRoute.sh $wlan
 
 ${base_dir}${SYSTEM_UTILS_DIR}saveAPChannel.sh
+
+#sudo systemctl start lighttpd.service
