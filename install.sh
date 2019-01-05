@@ -30,6 +30,7 @@ ACCESS_POINT_DEV=ap0
 # project subdir do not modify
 SYSTEM_UTILS_DIR=utils/system/
 DNSMQSQ_UTILS_DIR=utils/dnsmasq/
+DHCPCD_UTILS_DIR=utils/dhcpcd/
 HOSTAPD_UTILS_DIR=utils/hostapd/
 WPA_SUPPLICANT_UTILS_DIR=utils/wpa_supplicant/
 
@@ -64,6 +65,15 @@ setupFile ${DNSMQSQ_UTILS_DIR}setDnsmasqConf.sh
 
 createDir ${INSTALL_DIR}${DNSMQSQ_UTILS_DIR}/conf
 cp ${pwd}${DNSMQSQ_UTILS_DIR}conf/dnsmasq.conf.tmpl ${INSTALL_DIR}${DNSMQSQ_UTILS_DIR}conf/
+
+#setup dhcpcd files
+createDir ${INSTALL_DIR}${DHCPCD_UTILS_DIR}
+
+setupFile ${DHCPCD_UTILS_DIR}setDhcpcdConf.sh
+
+createDir ${INSTALL_DIR}${DHCPCD_UTILS_DIR}/conf
+cp ${pwd}${DHCPCD_UTILS_DIR}conf/dhcpcd.conf.tmpl ${INSTALL_DIR}${DHCPCD_UTILS_DIR}conf/
+
 
 #setup hostapd files
 createDir ${INSTALL_DIR}${HOSTAPD_UTILS_DIR}
@@ -130,9 +140,10 @@ systemctl disable wpa_supplicant.service
 systemctl disable dnsmasq
 systemctl disable hostapd
 systemctl disable openvpn.service
-
+systemctl disable dhcpcd
 
 #setup dnsmasq and hostapd config file
-echo "setup dnsmasq and hostapd config file..."
+echo "setup dnsmasq, dhcpcd and hostapd config file..."
 ${INSTALL_DIR}${HOSTAPD_UTILS_DIR}setHostapdConf.sh $ACCESS_POINT_DEV ${AP_CHANNEL}
 ${INSTALL_DIR}${DNSMQSQ_UTILS_DIR}setDnsmasqConf.sh $ACCESS_POINT_DEV y n
+${INSTALL_DIR}${DHCPCD_UTILS_DIR}setDhcpcdConf.sh $ACCESS_POINT_DEV ${BASE_WIFI_DEV}

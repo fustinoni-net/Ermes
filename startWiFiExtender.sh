@@ -16,6 +16,9 @@ iwconfig wlan0  power off
 
 /sbin/iw dev wlan0 interface add $ap type __ap
 
+${base_dir}${DHCPCD_UTILS_DIR}setDhcpcdConf.sh $ap $wlan
+systemctl start dhcpcd
+
 /usr/sbin/hostapd -B /etc/hostapd/hostapd.conf
 service dnsmasq start
 
