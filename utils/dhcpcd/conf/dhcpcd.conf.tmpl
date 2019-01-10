@@ -55,14 +55,14 @@ slaac private
 #interface eth0
 #fallback static_eth0
 
-#nohook wpa_supplicant
+nohook wpa_supplicant
 interface ${AP_INTERFACE}
 #nogateway
 metric 500
 static ip_address=192.168.50.10/24
-static routers=192.168.50.1
-static domain_name_servers=192.168.50.10 192.168.50.1
-#static domain_name_servers=8.8.8.8 192.168.50.1
+static routers=192.168.50.10
+static domain_name_servers=192.168.50.10
+#static domain_name_servers=8.8.8.8 192.168.50.10
 #nohook wpa_supplicant
 
 interface ${WLAN_INTERFACE}
