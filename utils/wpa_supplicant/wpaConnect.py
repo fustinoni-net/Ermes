@@ -1,7 +1,15 @@
 import socket
-import sys  
+import sys
 import os
 import time
+
+
+class NetworkItem:
+	id = ""
+	ssid = ""
+	bssid = ""
+	flags = ""
+
 
 SERVER_FILE = "/var/run/wpa_supplicant/wlan0"
 CLIENT_FILE = "/tmp/wpa_SR" + str(time.time())
@@ -11,7 +19,20 @@ os.system('rm -f ' + CLIENT_FILE)
 s = socket.socket(socket.AF_UNIX, socket.SOCK_DGRAM)
 s.bind(CLIENT_FILE)
 
+
 try:
+
+        try:
+                s.sendto('SCAN',SERVER_FILE)
+        except socket.error:
+                print 'Send failed'
+                sys.exit()
+
+        while data != '<3>CTRL-EVENT-SCAN-RESULTS ':
+		data, addr = s.recvfrom(4096)
+	
+
+
 
 	try:
 		s.sendto('ATTACH',SERVER_FILE);
