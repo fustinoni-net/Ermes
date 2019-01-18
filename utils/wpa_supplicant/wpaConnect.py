@@ -69,12 +69,14 @@ try:
                 out = out + 'send faild' + '\n'
                 sys.exit()
 	data = ''
-        while  (not data.startswith('<3>CTRL-EVENT-CONNECTED')) and data != '<4>Failed to initiate sched scan' and data != 'FAIL\n':
+	startTime = time.time()
+        while  (not data.startswith('<3>CTRL-EVENT-CONNECTED')) and data != '<4>Failed to initiate sched scan' and data != 'FAIL\n' and time.time() < startTime + 20:
 		#while data != 'FAIL\n':
                 # Receive data
                 #print('# Receive data from server')
                 #print 'leggo'
-                data, addr = s.recvfrom(4096)
+                s.settimeout(25.0)
+		data, addr = s.recvfrom(4096)
 		sys.stdout.write( "-----" + data + '\n')
 		out = out + data + '\n'
 
@@ -91,7 +93,13 @@ try:
 
 	for n in networkList:
 		sys.stdout.write(n.ssid + '\n')
-		if 
+		if not "[DISABLED]" in n.flags:
+			try:
+                		s.sendto('ENABLE_NETWORK ' + n.id, SERVER_FILE);
+        		except socket.error:
+                		out = out + 'send faild' + '\n'
+                		sys.exit() 
+			out = out + data + '\n'
 
 	s.close()
 	os.unlink(CLIENT_FILE)
