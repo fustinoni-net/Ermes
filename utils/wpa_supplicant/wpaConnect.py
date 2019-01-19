@@ -32,6 +32,8 @@ try:
 	data, addr = s.recvfrom(4096)
 	out = out + data + '\n'
 
+	currentNetwork = ""
+
 	networkList=[]	
 	dataList = data.split('\n')
 	for line in dataList:
@@ -50,7 +52,12 @@ try:
 		if len(lineValue) == 4:
 			net.flags = lineValue[3]
 		networkList.append(net)
+		if "[CURRENT]" in net.flags:
+			currentNetwork = net.id
 
+	if sys.argv[1]== currentNetwork:
+		out = out + 'OK' + '\n'
+		sys.exit()
 
 	out = out + 'ATTACH' + '\n'
         try:
@@ -77,7 +84,7 @@ try:
                 #print 'leggo'
                 s.settimeout(25.0)
 		data, addr = s.recvfrom(4096)
-		sys.stdout.write( "-----" + data + '\n')
+		#sys.stdout.write( "-----" + data + '\n')
 		out = out + data + '\n'
 
 	out = out + 'DETACH' + '\n'
@@ -92,17 +99,17 @@ try:
 	out = out + data + '\n'
 
 	for n in networkList:
-		sys.stdout.write(n.ssid + '\n')
 		if not "[DISABLED]" in n.flags:
 			try:
+				out = out + 'ENABLE_NETWORK ' + n.id  + '\n'
                 		s.sendto('ENABLE_NETWORK ' + n.id, SERVER_FILE);
         		except socket.error:
                 		out = out + 'send faild' + '\n'
                 		sys.exit() 
 			out = out + data + '\n'
 
-	s.close()
-	os.unlink(CLIENT_FILE)
 finally:
+        sys.stdout.write(out + '\n')
+	s.close()
+        os.unlink(CLIENT_FILE)
 	os.system('rm -f ' + CLIENT_FILE)
-	sys.stdout.write(out + '\n')
