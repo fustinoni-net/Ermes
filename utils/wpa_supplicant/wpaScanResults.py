@@ -13,6 +13,16 @@ s.bind(CLIENT_FILE)
 
 try:
 
+       # try:
+       #         s.sendto('SCAN_INTERVAL 10',SERVER_FILE)
+       # except socket.error:
+       #         print 'Send failed'
+       #         sys.exit()
+
+        #data, addr = s.recvfrom(4096)
+	#print '---- ' + data
+	#time.sleep(1)
+
 	try:
 		s.sendto('ATTACH',SERVER_FILE);
 	except socket.error:
@@ -20,7 +30,7 @@ try:
     		sys.exit()
 
 	data, addr = s.recvfrom(4096)
-
+	#print '----Att ' + data
 
 	try:
     		s.sendto('SCAN',SERVER_FILE)
@@ -28,11 +38,14 @@ try:
 		print 'Send failed'
 		sys.exit()
 
+	#time.sleep(1)
+
 	while data != '<3>CTRL-EVENT-SCAN-RESULTS ': 
 		# Receive data
 		#print('# Receive data from server')
 		#print 'leggo'
 		data, addr = s.recvfrom(4096)
+		#print '----Scan ' + data
 		#print reply
 
 	#print 'out'
@@ -43,18 +56,24 @@ try:
 	except socket.error:
     		#print 'Send failed'
     		sys.exit()
-
-	data, addr = s.recvfrom(4096)
+	data = '<'
+	while data[0:1] == "<":
+		data, addr = s.recvfrom(4096)
+		#print '----Det  ' + data
 
 	#print reply
 
 	try:
+		#print "---scan-result"
         	s.sendto('SCAN_RESULTS', SERVER_FILE);
 	except socket.error:
     		print 'Send failed'
     		sys.exit()
 
-	data, addr = s.recvfrom(4096)
+	data = '<'
+	while data[0:1] == "<":
+		data, addr = s.recvfrom(4096)
+		#print '----Res  ' + data
 
 	sys.stdout.write(data)
 	s.close()
