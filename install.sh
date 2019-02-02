@@ -9,7 +9,7 @@ AP_SSID=ermes
 AP_PASSPHRASE=12345678
 
 # Set the access point channel
-AP_CHANNEL=1
+AP_CHANNEL=11
 # Set the install directory path
 INSTALL_DIR=/home/pi/wifiExtender/
 
@@ -129,9 +129,9 @@ fi
 #fi
 
 
-apt-get update
-apt-get upgrade
-apt-get -y install hostapd dnsmasq haveged openvpn
+#apt-get update
+#apt-get upgrade
+#apt-get -y install hostapd dnsmasq haveged openvpn
 
 #systemctl stop dnsmasq
 #systemctl stop hostapd
@@ -141,7 +141,7 @@ systemctl disable wpa_supplicant.service
 systemctl disable dnsmasq
 systemctl disable hostapd
 systemctl disable openvpn.service
-systemctl disable dhcpcd
+#systemctl disable dhcpcd
 
 #setup dnsmasq and hostapd config file
 echo "setup dnsmasq, dhcpcd and hostapd config file..."

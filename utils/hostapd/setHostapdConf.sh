@@ -32,8 +32,10 @@ DESTINATION_FILE_BACKUP=/etc/hostapd/hostapd.conf.backup
 
 cat $TMPL_FILE | envsubst > $TEMP_FILE
 
+if test -f $DESTINATION_FILE ; then 
+	sudo cp $DESTINATION_FILE $DESTINATION_FILE_BACKUP
+fi
 
-sudo cp $DESTINATION_FILE $DESTINATION_FILE_BACKUP
 sudo cp $TEMP_FILE $DESTINATION_FILE
 
 #sudo reboot
