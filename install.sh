@@ -40,7 +40,7 @@ export ACCESS_POINT_DEV BASE_WIFI_DEV AP_SSID AP_PASSPHRASE
 
 
 function setupFile {
-	cat $1 | envsubst '$INSTALL_DIR $SYSTEM_UTILS_DIR $DNSMQSQ_UTILS_DIR $HOSTAPD_UTILS_DIR  \
+	cat $1 | envsubst '$INSTALL_DIR $SYSTEM_UTILS_DIR $DNSMQSQ_UTILS_DIR $HOSTAPD_UTILS_DIR $DHCPCD_UTILS_DIR  \
 		$WPA_SUPPLICANT_UTILS_DIR $ACCESS_POINT_DEV $BASE_WIFI_DEV $AP_SSID $AP_PASSPHRASE' > ${INSTALL_DIR}$1
 	chmod +x ${INSTALL_DIR}$1
 }
@@ -101,9 +101,10 @@ setupFile ${SYSTEM_UTILS_DIR}setVPNRoute.sh
 #setup wpa_supplicant files
 createDir ${INSTALL_DIR}${WPA_SUPPLICANT_UTILS_DIR}
 setupFile ${WPA_SUPPLICANT_UTILS_DIR}wpa_events.sh
-setupFile ${base_dir}${WPA_SUPPLICANT_UTILS_DIR}createWpa_supplicantTCPInterface.sh
-cp  ${pwd}${WPA_SUPPLICANT_UTILS_DIR}wpaTcpGateway.py ${INSTALL_DIR}${WPA_SUPPLICANT_UTILS_DIR}
+#setupFile ${base_dir}${WPA_SUPPLICANT_UTILS_DIR}createWpa_supplicantTCPInterface.sh
+#cp  ${pwd}${WPA_SUPPLICANT_UTILS_DIR}wpaTcpGateway.py ${INSTALL_DIR}${WPA_SUPPLICANT_UTILS_DIR}
 #Considerare se creare un wpa_supplicant.conf con parametri per wpa_cli
+#nel caso deve contenere almeno una rete configurata
 
 #change to /etc/rc.local
 if [ $(cat /etc/rc.local |grep startWiFiExtender.sh |wc -l) !=  1 ]; then
