@@ -129,9 +129,9 @@ fi
 #fi
 
 
-#apt-get update
-#apt-get upgrade
-#apt-get -y install hostapd dnsmasq haveged openvpn
+apt-get update
+apt-get upgrade
+apt-get -y install hostapd dnsmasq haveged openvpn
 
 #systemctl stop dnsmasq
 #systemctl stop hostapd
