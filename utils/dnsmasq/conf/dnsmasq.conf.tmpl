@@ -9,11 +9,19 @@ bind-dynamic
 domain-needed
 bogus-priv
 dhcp-range=192.168.50.150,192.168.50.200,255.255.255.0,12h
+
 address=/${$AP_SSID}/192.168.50.10
+#address=/${$AP_SSID}.com/192.168.50.10
+
+address=/php-proxy/192.168.50.10
+
+${FK_CON_CHECK}address=/clients3.google.com/192.168.50.10
+${FK_CON_CHECK}address=/connectivitycheck.gstatic.com/192.168.50.10
+${FK_CON_CHECK}address=/connectivitycheck.android.com/192.168.50.10
+
 ${JAIL}address=/#/192.168.50.10
 
 ${ADS_BLOCK}addn-hosts=/home/pi/addBlock/final_blocklist.txt
-
 
 
 # Original dnsmasq.con for reference

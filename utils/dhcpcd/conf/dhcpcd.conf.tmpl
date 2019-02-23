@@ -58,9 +58,10 @@ slaac private
 nohook wpa_supplicant
 interface ${AP_INTERFACE}
 #nogateway
-metric 500
+#from 500 to 100 and remove the static routers
+metric 100
 static ip_address=192.168.50.10/24
-static routers=192.168.50.10
+#static routers=192.168.50.10
 static domain_name_servers=192.168.50.10
 #static domain_name_servers=8.8.8.8 192.168.50.10
 #nohook wpa_supplicant
