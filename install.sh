@@ -97,6 +97,8 @@ setupFile ${SYSTEM_UTILS_DIR}saveAPChannel.sh
 setupFile ${SYSTEM_UTILS_DIR}setBaseRoute.sh
 setupFile ${SYSTEM_UTILS_DIR}removeVPNRoute.sh
 setupFile ${SYSTEM_UTILS_DIR}setVPNRoute.sh
+setupFile ${SYSTEM_UTILS_DIR}isBaseRouteEnable.sh
+
 
 #setup wpa_supplicant files
 createDir ${INSTALL_DIR}${WPA_SUPPLICANT_UTILS_DIR}
