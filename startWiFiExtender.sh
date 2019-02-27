@@ -14,6 +14,8 @@ fi
 # maybe just when  there is only one wlan present?
 iwconfig wlan0  power off
 
+sudo iw dev ap0 set power_save off
+
 /sbin/iw dev wlan0 interface add $ap type __ap
 
 ${base_dir}${DHCPCD_UTILS_DIR}setDhcpcdConf.sh $ap $wlan

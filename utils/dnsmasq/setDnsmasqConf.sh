@@ -1,7 +1,7 @@
 #!/bin/bash
 
-if [ -z "$1" ] || [ -z "$2" ] || [ -z "$3" ]; then
-        echo "Usage: $0 AP_INTERFACE JAIL [y|n] ADS_BLOCK [y|n]"
+if [ -z "$1" ] || [ -z "$2" ] || [ -z "$3" ] || [ -z "$4" ]; then
+        echo "Usage: $0 AP_INTERFACE JAIL [y|n] ADS_BLOCK [y|n] FK_CONN_CHECK [y|n]"
         exit 1
 fi
 
@@ -35,9 +35,15 @@ if [ "$3" = "y" ]; then
         ADS_BLOCK=""
 fi
 
+FK_CONN_CHECK="#"
+if [ "$4" = "y" ]; then
+        FK_CONN_CHECK=""
+fi
+
+
 #echo "$AP_INTERFACE jail  $JAIL  ads $ADS_BLOCK"
 
-export AP_CHANNEL AP_INTERFACE JAIL ADS_BLOCK AP_SSID
+export AP_INTERFACE JAIL ADS_BLOCK AP_SSID FK_CONN_CHECK
 
 TEMP_FILE=${INSTALL_DIR}${DNSMQSQ_UTILS_DIR}conf/dnsmasq.conf
 DESTINATION_FILE=/etc/dnsmasq.conf
