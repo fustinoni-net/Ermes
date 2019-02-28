@@ -149,5 +149,5 @@ systemctl disable openvpn.service
 #setup dnsmasq and hostapd config file
 echo "setup dnsmasq, dhcpcd and hostapd config file..."
 ${INSTALL_DIR}${HOSTAPD_UTILS_DIR}setHostapdConf.sh $ACCESS_POINT_DEV ${AP_CHANNEL}
-${INSTALL_DIR}${DNSMQSQ_UTILS_DIR}setDnsmasqConf.sh $ACCESS_POINT_DEV y n
+${INSTALL_DIR}${DNSMQSQ_UTILS_DIR}setDnsmasqConf.sh $ACCESS_POINT_DEV n n n
 ${INSTALL_DIR}${DHCPCD_UTILS_DIR}setDhcpcdConf.sh $ACCESS_POINT_DEV ${BASE_WIFI_DEV}

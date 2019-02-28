@@ -1,8 +1,8 @@
 #!/bin/bash
 
-JAIL_FILE=${INSTALL_DIR}/jail
-ADS_BLOCK_FILE=${INSTALL_DIR}/ads_block
-FK_CONN_CHECK_FILE =${INSTALL_DIR}/kk_conn_check
+JAIL_FILE=${INSTALL_DIR}jail
+ADS_BLOCK_FILE=${INSTALL_DIR}ads_block
+FK_CONN_CHECK_FILE=${INSTALL_DIR}kk_conn_check
 
 SET_JAIL='n'
 if  [ -f $JAIL_FILE ]

@@ -4,6 +4,7 @@ base_dir=${INSTALL_DIR}
 wlan=${BASE_WIFI_DEV}
 ap=${ACCESS_POINT_DEV}
 
+FK_CONN_CHECK_FILE=${INSTALL_DIR}kk_conn_check
 
 mapfile -t my_array < <(iwconfig 2> /dev/null |grep wlan | sed 's/\(wlan[0-9]*\).*/\1/g')
 if [[ " ${my_array[@]} " =~ " wlan1 " ]]; then
@@ -36,8 +37,15 @@ service dnsmasq start
 #check on the following line. Should not be needed
 sysctl net.ipv4.ip_forward=1
 
-${base_dir}${SYSTEM_UTILS_DIR}setBaseRoute.sh $wlan
+#${base_dir}${SYSTEM_UTILS_DIR}setBaseRoute.sh $wlan
 
 ${base_dir}${SYSTEM_UTILS_DIR}saveAPChannel.sh
+
+if  [ ! -f $FK_CONN_CHECK_FILE ]
+then
+    touch $FK_CONN_CHECK_FILE
+fi
+
+${base_dir}setDnsMasqOptions.sh
 
 #sudo systemctl start lighttpd.service
