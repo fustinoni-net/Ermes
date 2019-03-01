@@ -154,3 +154,12 @@ ${INSTALL_DIR}${DHCPCD_UTILS_DIR}setDhcpcdConf.sh $ACCESS_POINT_DEV ${BASE_WIFI_
 
 chgrp -R www-data ${INSTALL_DIR}
 chmod -R g+w ${INSTALL_DIR}
+
+git clone https://github.com/fustinoni-net/wpa_cli_py.git /tmp/wpa_cli
+git checkout dev
+chmode +x /tmp/wpa_cli/install.sh
+/tmp/wpa_cli/install.sh
+rm -R -I /tmp/wpa_cli
+
+
+
