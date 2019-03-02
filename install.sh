@@ -156,16 +156,16 @@ chgrp -R www-data ${INSTALL_DIR}
 chmod -R g+w ${INSTALL_DIR}
 
 git clone https://github.com/fustinoni-net/wpa_cli_py.git /tmp/wpa_cli
-#cd /tmp/wpa_cli/
+cd /tmp/wpa_cli/
 git -C /tmp/wpa_cli/ checkout dev
 chmod +x /tmp/wpa_cli/install.sh
 /tmp/wpa_cli/install.sh
-#cd -
+cd -
 rm -R -I /tmp/wpa_cli
 
 wget -q https://raw.githubusercontent.com/fustinoni-net/raspap-webgui/dev/installers/raspbian.sh -O /tmp/raspbian.sh
 chmod +x /tmp/raspbian.sh
-/tmp/raspbian.sh
+/tmp/raspbian.sh ${INSTALL_DIR}
 rm /tmp/raspbian.sh
 
 
