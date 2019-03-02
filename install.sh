@@ -163,5 +163,11 @@ chmod +x /tmp/wpa_cli/install.sh
 #cd -
 rm -R -I /tmp/wpa_cli
 
+wget -q https://raw.githubusercontent.com/fustinoni-net/raspap-webgui/dev/installers/raspbian.sh -O /tmp/raspbian.sh
+chmod +x /tmp/raspbian.sh
+/tmp/raspbian.sh
+rm /tmp/raspbian.sh
+
+
 
 
