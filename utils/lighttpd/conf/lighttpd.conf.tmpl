@@ -1,15 +1,17 @@
 server.modules = (
 	"mod_access",
+	"mod_accesslog",
 	"mod_alias",
 	"mod_compress",
  	"mod_redirect",
 	"mod_rewrite"
 )
 
-#server.document-root        = "/var/www/html"
+#server.document-root       = "/var/www/html"
 server.document-root        = "/var/www/jail"
 server.upload-dirs          = ( "/var/cache/lighttpd/uploads" )
 server.errorlog             = "/var/log/lighttpd/error.log"
+accesslog.filename          = "/var/log/lighttpd/access.log"
 server.pid-file             = "/var/run/lighttpd.pid"
 server.username             = "www-data"
 server.groupname            = "www-data"
@@ -44,6 +46,14 @@ $HTTP["host"] == "clients3.google.com" {
             url.rewrite-once = ( "/generate_204" => "/index.php" )
 }
 
-$HTTP["host"] == "ermes" {
+$HTTP["host"] == "${AP_SSID}" {
             server.document-root = "/var/www/html"
+}
+
+$HTTP["host"] == "${AP_SSID}.com" {
+            server.document-root = "/var/www/html"
+}
+
+$HTTP["host"] == "php-proxy" {
+            server.document-root = "/var/www/php-proxy"
 }

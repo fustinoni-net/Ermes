@@ -48,4 +48,4 @@ fi
 
 ${base_dir}setDnsMasqOptions.sh
 
-#sudo systemctl start lighttpd.service
+sudo systemctl start lighttpd.service
