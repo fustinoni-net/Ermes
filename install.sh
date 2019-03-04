@@ -36,12 +36,12 @@ DHCPCD_UTILS_DIR=utils/dhcpcd/
 HOSTAPD_UTILS_DIR=utils/hostapd/
 WPA_SUPPLICANT_UTILS_DIR=utils/wpa_supplicant/
 LIGHTTPD_CONF_DIR=utils/lighttpd/conf/
-ADDBLOCK=utils/addBlock/
+ADDBLOCK_UTILS_DIR=utils/addBlock/
 
 
 # export for files customization
 export INSTALL_DIR SYSTEM_UTILS_DIR DNSMQSQ_UTILS_DIR HOSTAPD_UTILS_DIR WPA_SUPPLICANT_UTILS_DIR DHCPCD_UTILS_DIR
-export ACCESS_POINT_DEV BASE_WIFI_DEV AP_SSID AP_PASSPHRASE ADDBLOCK
+export ACCESS_POINT_DEV BASE_WIFI_DEV AP_SSID AP_PASSPHRASE ADDBLOCK_UTILS_DIR
 
 
 function setupFile {
@@ -295,6 +295,7 @@ function setup_addBlock_files(){
     install_log "Setup addBlock file"
     createDir ${INSTALL_DIR}${ADDBLOCK_UTILS_DIR}
     setupFile ${ADDBLOCK_UTILS_DIR}make-ads-hostfile.sh
+    chmod +x ${INSTALL_DIR}${ADDBLOCK_UTILS_DIR}make-ads-hostfile.sh
     ${INSTALL_DIR}${ADDBLOCK_UTILS_DIR}make-ads-hostfile.sh
 }
 
