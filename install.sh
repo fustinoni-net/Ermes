@@ -29,7 +29,7 @@ BASE_WIFI_DEV=wlan0
 ACCESS_POINT_DEV=ap0
 
 # project subdir do not modify
-WEBROOT_DIR=/var/www/html
+WEBROOT_DIR=/var/www/
 SYSTEM_UTILS_DIR=utils/system/
 DNSMQSQ_UTILS_DIR=utils/dnsmasq/
 DHCPCD_UTILS_DIR=utils/dhcpcd/
@@ -282,7 +282,10 @@ function configure_lighttpd(){
     cat ${LIGHTTPD_CONF_DIR}lighttpd.conf.tmpl | envsubst '$AP_SSID' > /etc/lighttpd/lighttpd.conf || install_error "Unable to set up lighttpd config file"
 
     cp -R ${LIGHTTPD_CONF_DIR}connectivitycheck.gstatic.com ${WEBROOT_DIR} || install_error "Unable to copy "${LIGHTTPD_CONF_DIR}connectivitycheck.gstatic.com
-    cp -R ${LIGHTTPD_CONF_DIR}jail ${WEBROOT_DIR}  || install_error "Unable to copy "${LIGHTTPD_CONF_DIR}jail
+    chgrp -R www-data ${WEBROOT_DIR}connectivitycheck.gstatic.com 
+    #cp -R ${LIGHTTPD_CONF_DIR}jail ${WEBROOT_DIR}  || install_error "Unable to copy "${LIGHTTPD_CONF_DIR}jail
+    mkdir ${WEBROOT_DIR}jail
+    chgrp -R www-data ${WEBROOT_DIR}jail
 
 }
 
