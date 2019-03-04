@@ -284,7 +284,7 @@ function configure_lighttpd(){
     cp -R ${LIGHTTPD_CONF_DIR}connectivitycheck.gstatic.com ${WEBROOT_DIR} || install_error "Unable to copy "${LIGHTTPD_CONF_DIR}connectivitycheck.gstatic.com
     chgrp -R www-data ${WEBROOT_DIR}connectivitycheck.gstatic.com 
     #cp -R ${LIGHTTPD_CONF_DIR}jail ${WEBROOT_DIR}  || install_error "Unable to copy "${LIGHTTPD_CONF_DIR}jail
-    mkdir ${WEBROOT_DIR}jail
+    mkdir ${WEBROOT_DIR}jail || install_error "Unable to copy "${LIGHTTPD_CONF_DIR}jail
     chgrp -R www-data ${WEBROOT_DIR}jail
 
 }
@@ -294,8 +294,8 @@ function configure_lighttpd(){
 function setup_addBlock_files(){
     install_log "Setup addBlock file"
     createDir ${INSTALL_DIR}${ADDBLOCK_UTILS_DIR}
-    setupFile ${ADDBLOCK_UTILS_DIR}wmake-ads-hostfile.sh
-    ${INSTALL_DIR}${ADDBLOCK_UTILS_DIR}wmake-ads-hostfile.sh
+    setupFile ${ADDBLOCK_UTILS_DIR}make-ads-hostfile.sh
+    ${INSTALL_DIR}${ADDBLOCK_UTILS_DIR}make-ads-hostfile.sh
 }
 
 
