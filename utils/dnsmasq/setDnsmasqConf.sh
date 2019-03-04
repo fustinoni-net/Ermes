@@ -17,6 +17,7 @@ if !([[ "$3" =~ ^[yn]+$ ]]); then
 fi
 
 AP_SSID=${AP_SSID}
+ADDBLOCK=${ADDBLOCK}
 TMPL_FILE=${INSTALL_DIR}${DNSMQSQ_UTILS_DIR}conf/dnsmasq.conf.tmpl
 
 if test ! -f $TMPL_FILE ; then 
@@ -43,7 +44,7 @@ fi
 
 #echo "$AP_INTERFACE jail  $JAIL  ads $ADS_BLOCK"
 
-export AP_INTERFACE JAIL ADS_BLOCK AP_SSID FK_CONN_CHECK AP_SSID
+export AP_INTERFACE JAIL ADS_BLOCK AP_SSID FK_CONN_CHECK INSTALL_DIR ADDBLOCK_UTILS_DIR
 
 TEMP_FILE=${INSTALL_DIR}${DNSMQSQ_UTILS_DIR}conf/dnsmasq.conf
 DESTINATION_FILE=/etc/dnsmasq.conf
