@@ -228,7 +228,7 @@ function install_dependencies(){
     systemctl disable dnsmasq  || install_error "Unable disable dnsmasq"
     systemctl disable hostapd  || install_error "Unable disable hostapd"
     systemctl disable openvpn.service  || install_error "Unable disable openvpn"
-    #systemctl disable dhcpcd
+    systemctl disable dhcpcd
 }
 
 #setup dnsmasq and hostapd config file
@@ -293,10 +293,25 @@ function configure_lighttpd(){
 #setup addBlock files
 function setup_addBlock_files(){
     install_log "Setup addBlock file"
-    createDir ${INSTALL_DIR}${ADDBLOCK_UTILS_DIR}
+    createDir ${INSTALL_DIR}${ADDBLOCK_UTILS_DIR} || install_error "Unable to create dir "${INSTALL_DIR}${ADDBLOCK_UTILS_DIR}
     setupFile ${ADDBLOCK_UTILS_DIR}make-ads-hostfile.sh
     chmod +x ${INSTALL_DIR}${ADDBLOCK_UTILS_DIR}make-ads-hostfile.sh
     ${INSTALL_DIR}${ADDBLOCK_UTILS_DIR}make-ads-hostfile.sh
+}
+
+#setup php-proxy files
+function setup_php_proxy_files(){
+    install_log "Install Composer"
+    curl -sS https://getcomposer.org/installer | php
+    mv composer.phar /usr/local/bin/composer
+
+    install_log "Install php-roxy"
+    apt-get -y install php-curl || install_error "Unable to install php-curl"
+
+    mkdir ${WEBROOT_DIR}php-proxy/ || install_error "Unable to create dir "${WEBROOT_DIR}php-proxy
+
+    composer create-project athlon1600/php-proxy-app:dev-master ${WEBROOT_DIR}php-proxy/
+    chgrp -R www-data ${WEBROOT_DIR}php-proxy
 }
 
 
@@ -316,4 +331,5 @@ install_raspbian
 set_install_dir_group
 configure_lighttpd
 setup_addBlock_files
+setup_php_proxy_files
 install_complete
