@@ -182,6 +182,7 @@ function setup_system_files(){
     setupFile ${SYSTEM_UTILS_DIR}removeVPNRoute.sh
     setupFile ${SYSTEM_UTILS_DIR}setVPNRoute.sh
     setupFile ${SYSTEM_UTILS_DIR}isBaseRouteEnable.sh
+    cp ${pwd}${SYSTEM_UTILS_DIR}connectivity_check.py ${INSTALL_DIR}${SYSTEM_UTILS_DIR}
 }
 
 #setup wpa_supplicant files
@@ -284,7 +285,7 @@ function configure_lighttpd(){
     cp -R ${LIGHTTPD_CONF_DIR}connectivitycheck.gstatic.com ${WEBROOT_DIR} || install_error "Unable to copy "${LIGHTTPD_CONF_DIR}connectivitycheck.gstatic.com
     chgrp -R www-data ${WEBROOT_DIR}connectivitycheck.gstatic.com 
     #cp -R ${LIGHTTPD_CONF_DIR}jail ${WEBROOT_DIR}  || install_error "Unable to copy "${LIGHTTPD_CONF_DIR}jail
-    mkdir ${WEBROOT_DIR}jail || install_error "Unable to copy "${LIGHTTPD_CONF_DIR}jail
+    mkdir ${WEBROOT_DIR}jail || install_error "Unable to make "${LIGHTTPD_CONF_DIR}jail
     chgrp -R www-data ${WEBROOT_DIR}jail
 
 }

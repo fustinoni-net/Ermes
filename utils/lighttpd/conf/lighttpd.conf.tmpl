@@ -31,6 +31,12 @@ include_shell "/usr/share/lighttpd/use-ipv6.pl " + server.port
 include_shell "/usr/share/lighttpd/create-mime.assign.pl"
 include_shell "/usr/share/lighttpd/include-conf-enabled.pl"
 
+#All domain name to a virtual host. Need to be the first in the list
+#$HTTP["host"]  =~ "(^|)$" {
+#            server.document-root = "/var/www/jail"
+#}
+
+
 $HTTP["host"] == "connectivitycheck.gstatic.com" {
             server.document-root = "/var/www/connectivitycheck.gstatic.com"
             url.rewrite-once = ( "/generate_204" => "/index.php" )
@@ -55,5 +61,9 @@ $HTTP["host"] == "${AP_SSID}.com" {
 }
 
 $HTTP["host"] == "php-proxy" {
+            server.document-root = "/var/www/php-proxy"
+}
+
+$HTTP["host"] == "php-proxy.com" {
             server.document-root = "/var/www/php-proxy"
 }
