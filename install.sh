@@ -285,7 +285,7 @@ function configure_lighttpd(){
     cp -R ${LIGHTTPD_CONF_DIR}connectivitycheck.gstatic.com ${WEBROOT_DIR} || install_error "Unable to copy "${LIGHTTPD_CONF_DIR}connectivitycheck.gstatic.com
     chgrp -R www-data ${WEBROOT_DIR}connectivitycheck.gstatic.com 
     #cp -R ${LIGHTTPD_CONF_DIR}jail ${WEBROOT_DIR}  || install_error "Unable to copy "${LIGHTTPD_CONF_DIR}jail
-    mkdir ${WEBROOT_DIR}jail || install_error "Unable to make "${LIGHTTPD_CONF_DIR}jail
+    mkdir -p ${WEBROOT_DIR}jail || install_error "Unable to make "${LIGHTTPD_CONF_DIR}jail
     chgrp -R www-data ${WEBROOT_DIR}jail
 
 }
@@ -309,7 +309,7 @@ function setup_php_proxy_files(){
     install_log "Install php-roxy"
     apt-get -y install php-curl || install_error "Unable to install php-curl"
 
-    mkdir ${WEBROOT_DIR}php-proxy/ || install_error "Unable to create dir "${WEBROOT_DIR}php-proxy
+    mkdir -p  ${WEBROOT_DIR}php-proxy/ || install_error "Unable to create dir "${WEBROOT_DIR}php-proxy
 
     composer create-project athlon1600/php-proxy-app:dev-master ${WEBROOT_DIR}php-proxy/
     chgrp -R www-data ${WEBROOT_DIR}php-proxy
