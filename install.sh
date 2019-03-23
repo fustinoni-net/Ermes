@@ -309,7 +309,8 @@ function setup_php_proxy_files(){
     install_log "Install php-roxy"
     apt-get -y install php-curl || install_error "Unable to install php-curl"
 
-    mkdir -p  ${WEBROOT_DIR}php-proxy/ || install_error "Unable to create dir "${WEBROOT_DIR}php-proxy
+    rm -R ${WEBROOT_DIR}php-proxy
+    #mkdir -p  ${WEBROOT_DIR}php-proxy/ || install_error "Unable to create dir "${WEBROOT_DIR}php-proxy
 
     composer create-project athlon1600/php-proxy-app:dev-master ${WEBROOT_DIR}php-proxy/
     chgrp -R www-data ${WEBROOT_DIR}php-proxy
