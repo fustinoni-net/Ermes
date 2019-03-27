@@ -36,17 +36,17 @@ DHCPCD_UTILS_DIR=utils/dhcpcd/
 HOSTAPD_UTILS_DIR=utils/hostapd/
 WPA_SUPPLICANT_UTILS_DIR=utils/wpa_supplicant/
 LIGHTTPD_CONF_DIR=utils/lighttpd/conf/
-ADDBLOCK_UTILS_DIR=utils/addBlock/
+ADS_BLOCK_UTILS_DIR=utils/adsBlock/
 
 
 # export for files customization
 export INSTALL_DIR SYSTEM_UTILS_DIR DNSMQSQ_UTILS_DIR HOSTAPD_UTILS_DIR WPA_SUPPLICANT_UTILS_DIR DHCPCD_UTILS_DIR
-export ACCESS_POINT_DEV BASE_WIFI_DEV AP_SSID AP_PASSPHRASE ADDBLOCK_UTILS_DIR
+export ACCESS_POINT_DEV BASE_WIFI_DEV AP_SSID AP_PASSPHRASE ADS_BLOCK_UTILS_DIR
 
 
 function setupFile {
 	cat $1 | envsubst '$INSTALL_DIR $SYSTEM_UTILS_DIR $DNSMQSQ_UTILS_DIR $HOSTAPD_UTILS_DIR $DHCPCD_UTILS_DIR  \
-		$WPA_SUPPLICANT_UTILS_DIR $ACCESS_POINT_DEV $BASE_WIFI_DEV $AP_SSID $AP_PASSPHRASE $ADDBLOCK' > ${INSTALL_DIR}$1
+		$WPA_SUPPLICANT_UTILS_DIR $ACCESS_POINT_DEV $BASE_WIFI_DEV $AP_SSID $AP_PASSPHRASE $ADS_BLOCK_UTILS_DIR' > ${INSTALL_DIR}$1
 	chmod +x ${INSTALL_DIR}$1 || install_error "Unable to chmode "${INSTALL_DIR}${1}
 }
 
@@ -294,10 +294,10 @@ function configure_lighttpd(){
 #setup addBlock files
 function setup_addBlock_files(){
     install_log "Setup addBlock file"
-    createDir ${INSTALL_DIR}${ADDBLOCK_UTILS_DIR} || install_error "Unable to create dir "${INSTALL_DIR}${ADDBLOCK_UTILS_DIR}
-    setupFile ${ADDBLOCK_UTILS_DIR}make-ads-hostfile.sh
-    chmod +x ${INSTALL_DIR}${ADDBLOCK_UTILS_DIR}make-ads-hostfile.sh
-    ${INSTALL_DIR}${ADDBLOCK_UTILS_DIR}make-ads-hostfile.sh
+    createDir ${INSTALL_DIR}${ADS_BLOCK_UTILS_DIR} || install_error "Unable to create dir "${INSTALL_DIR}${ADS_BLOCK_UTILS_DIR}
+    setupFile ${ADS_BLOCK_UTILS_DIR}make-ads-hostfile.sh
+    chmod +x ${INSTALL_DIR}${ADS_BLOCK_UTILS_DIR}make-ads-hostfile.sh
+    ${INSTALL_DIR}${ADS_BLOCK_UTILS_DIR}make-ads-hostfile.sh
 }
 
 #setup php-proxy files

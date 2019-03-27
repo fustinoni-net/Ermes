@@ -6,7 +6,7 @@
 # Address to send ads to. This could possibily be removed, but may be useful for debugging purposes?
 destinationIP="127.0.0.1"
 
-outlist=${INSTALL_DIR}${ADDBLOCK_UTILS_DIR}'final_blocklist.txt'
+outlist=${INSTALL_DIR}${ADS_BLOCK_UTILS_DIR}final_blocklist.txt
 tempoutlist="$outlist.tmp"
 
 echo "Getting yoyo ad list..." 
